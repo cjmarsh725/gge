@@ -1,4 +1,4 @@
-class GGESetup {
+class GG_Setup {
   constructor(gge) {
     if(gge.config.canvas) {
       gge.canvas = gge.config.canvas;

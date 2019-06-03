@@ -2,7 +2,7 @@ var fs = require('fs');
 var path = require('path');
 
 var srcDir = path.join(__dirname, '..', 'src');
-var destDir = path.join(__dirname, 'packed.js');
+var destDir = path.join(__dirname, 'gge.js');
 fs.watch(srcDir, function (eventType, filename) {
   try {
     let packedData = '';

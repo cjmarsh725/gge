@@ -1,18 +1,19 @@
-class GGE {
+const GG_Config = {
+  parent: null,
+  canvasid: null,
+  canvas: null,
+  width: 800,
+  height: 600,
+}
+
+class GG {
   constructor(config = {}) {
-    // Defaults overwritten by config parameter, stored in object variable
-    this.config = Object.assign({
-      parent: null,
-      canvasid: null,
-      canvas: null,
-      width: 800,
-      height: 600,
-    }, config);
-    new GGESetup(this);
+    this.config = Object.assign(GG_Config, config);
+    new GG_Setup(this);
   }
 }
 
-class GGESetup {
+class GG_Setup {
   constructor(gge) {
     if(gge.config.canvas) {
       gge.canvas = gge.config.canvas;

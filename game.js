@@ -1,1 +1,1 @@
-let game = new GGE();
+let game = new GG();
