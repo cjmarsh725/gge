@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "game.js",
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
     "chokidar": "^3.0.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pack": "nodemon dist/packer.js"
   },
   "repository": {
     "type": "git",

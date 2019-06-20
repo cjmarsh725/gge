@@ -1,9 +1,10 @@
-var fs = require('fs');
-var path = require('path');
-var chokidar = require('chokidar');
+const fs = require('fs');
+const path = require('path');
+const chokidar = require('chokidar');
+const babel = require('@babel/core');
 
-var srcDir = path.join(__dirname, '..', 'src');
-var destDir = path.join(__dirname, 'gg.js');
+const srcDir = path.join(__dirname, '..', 'src');
+const destDir = path.join(__dirname, 'gg.js');
 
 chokidar.watch(srcDir, {}).on('change', (event, path) => {
   try {
@@ -13,21 +14,27 @@ chokidar.watch(srcDir, {}).on('change', (event, path) => {
     for (const file of files) {
       packedData += fs.readFileSync(file, 'utf8') + '\n\n';
     }
-    packedData += 'GG_Setup();\n'
-    packedData += '\nreturn GG_E;\n}'
-    fs.writeFileSync(destDir, packedData);
+    packedData += 'GG_Setup();\n\nreturn GG_E;\n}';
+    const babeled = babel.transformSync(packedData, {
+      minified: true,
+      comments: false,
+      presets: [ [ "@babel/preset-env", 
+                    { "useBuiltIns": "entry", "corejs": "3.0.0" } ] ]
+    }).code;
+    fs.writeFileSync(destDir, babeled);
+    console.log("File updated");
   }
   catch (error) {
     console.error(error);
   }
 });
 
-var walk = function(dir) {
-  var results = [];
-  var list = fs.readdirSync(dir);
+const walk = function(dir) {
+  const results = [];
+  const list = fs.readdirSync(dir);
   list.forEach(function(file) {
       file = dir + '/' + file;
-      var stat = fs.statSync(file);
+      const stat = fs.statSync(file);
       if (stat && stat.isDirectory()) { 
           /* Recurse into a subdirectory */
           results = results.concat(walk(file));

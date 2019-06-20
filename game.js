@@ -1,1 +1,1 @@
-let gg = GG({canvas: HTMLAnchorElement});
+let gg = GG();

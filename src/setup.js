@@ -20,8 +20,8 @@ const GG_Setup = () => {
     console.log("Canvas created");
   }
   console.log("Canvas width: " + GG_I.canvas.width);
-  //GG_I.canvas.width = GG_I.config.width;
-  //GG_I.canvas.height = GG_I.config.height;
+  GG_I.canvas.width = GG_I.config.width;
+  GG_I.canvas.height = GG_I.config.height;
 
   // Get WebGL rendering context
   const gl = GG_I.canvas.getContext("webgl") || 
