@@ -4,13 +4,24 @@ const GG_Setup = () => {
   GG_I.config = Object.assign(GG_Config, config);
 
   // Assign or create canvas and initialize its properties
-  if(GG_I.config.canvas) {
-    GG_I.canvas = GG_I.config.canvas;
-  } else {
-    GG_I.canvas = document.createElement("canvas");
+  if (GG_I.config.canvas) {
+    if (GG_I.config.canvas instanceof HTMLCanvasElement) {
+      GG_I.canvas = GG_I.config.canvas;
+    } else {
+      console.warn("Invalid canvas supplied - a new one has been created.");
+    }
+    console.log("Canvas found");
+  } else if (GG_I.config.canvasid) {
+    GG_I.canvas = document.querySelector("#" + GG_I.config.canvasid);
+    console.log("Canvas id found");
   }
-  GG_I.canvas.width = GG_I.config.width;
-  GG_I.canvas.height = GG_I.config.height
+  if (!(GG_I.canvas instanceof HTMLCanvasElement)) {
+    GG_I.canvas = document.createElement("canvas");
+    console.log("Canvas created");
+  }
+  console.log("Canvas width: " + GG_I.canvas.width);
+  //GG_I.canvas.width = GG_I.config.width;
+  //GG_I.canvas.height = GG_I.config.height;
 
   // Get WebGL rendering context
   const gl = GG_I.canvas.getContext("webgl") || 

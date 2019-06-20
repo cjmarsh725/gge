@@ -1,11 +1,13 @@
 var fs = require('fs');
 var path = require('path');
+var chokidar = require('chokidar');
 
 var srcDir = path.join(__dirname, '..', 'src');
 var destDir = path.join(__dirname, 'gg.js');
-fs.watch(srcDir, function (eventType, filename) {
+
+chokidar.watch(srcDir, {}).on('change', (event, path) => {
   try {
-    let packedData = 'const GG = config => {\n';
+    let packedData = 'const GG = (config = {}) => {\n';
     packedData += 'const GG_E = {};\nconst GG_I = {}\n\n';
     const files = walk(srcDir);
     for (const file of files) {
