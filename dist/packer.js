@@ -22,7 +22,6 @@ chokidar.watch(srcDir, {}).on('change', (event, path) => {
                     { "useBuiltIns": "entry", "corejs": "3.0.0" } ] ]
     }).code;
     fs.writeFileSync(destDir, babeled);
-    console.log("File updated");
   }
   catch (error) {
     console.error(error);

@@ -1,7 +1,6 @@
 const GG_Config = {
-  parent: null,
-  canvasid: null,
-  canvas: null,
+  parentID: null,
+  canvasID: null,
   width: 800,
   height: 600,
 }
