@@ -1,3 +1,17 @@
+const GG = config => {
+const GG_E = {};
+const GG_I = {}
+
+const GG_Config = {
+  parent: null,
+  canvasid: null,
+  canvas: null,
+  width: 800,
+  height: 600,
+}
+
+
+
 /*----- SETUP -----*/
 const GG_Setup = () => {
   // Complete supplied config with default values
@@ -24,4 +38,9 @@ const GG_Setup = () => {
   gl.clear(gl.COLOR_BUFFER_BIT);
 
   document.body.append(GG_I.canvas);
+}
+
+GG_Setup();
+
+return GG_E;
 }
