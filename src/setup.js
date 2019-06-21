@@ -5,26 +5,27 @@ const GG_Setup = () => {
 
   // Assign or create canvas and initialize its properties
   if (GG_I.config.canvasID) {
-    try {
-      GG_I.canvas = document.getElementById(GG_I.config.canvasID);
+    const providedCanvas = document.getElementById(GG_I.config.canvasID);
+    if (providedCanvas instanceof HTMLCanvasElement) {
+      GG_I.canvas = providedCanvas;
       if (config.width) GG_I.canvas.width = GG_I.config.width;
       if (config.height) GG_I.canvas.height = GG_I.config.height;
-    } catch {
-      console.warn("The provided canvasID was invalid");
+    } else {
+      console.warn("The provided canvasID was invalid.");
     }
   }
   if (!(GG_I.canvas instanceof HTMLCanvasElement)) {
     GG_I.canvas = document.createElement("canvas");
     GG_I.canvas.width = GG_I.config.width;
     GG_I.canvas.height = GG_I.config.height;
+    document.body.appendChild(GG_I.canvas);
   }
   if (GG_I.config.parentID) {
-    try {
-      console.log(document.getElementById(GG_I.config.parentID));
-      console.log(GG_I.canvas);
-      document.getElementById(GG_I.config.parentID).appendChild(GG_I.canvas);
-    } catch {
-      console.warn("The provided parentID was invalid");
+    const parent = document.getElementById(GG_I.config.parentID);
+    if (parent) {
+      parent.appendChild(GG_I.canvas);
+    } else {
+      console.warn("The provided parentID was invalid.");
     }
   }
 
@@ -39,5 +40,5 @@ const GG_Setup = () => {
   gl.clearColor(0.0,0.0,0.0,1.0);
   gl.clear(gl.COLOR_BUFFER_BIT);
 
-  document.body.append(GG_I.canvas);
+  //document.body.append(GG_I.canvas);
 }

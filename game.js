@@ -1,1 +1,1 @@
-let gg = GG({parentID: "bar"});
+let gg = GG();
