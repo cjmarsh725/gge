@@ -9,12 +9,12 @@ const destDir = path.join(__dirname, 'gg.js');
 chokidar.watch(srcDir, {}).on('change', (event, path) => {
   try {
     let packedData = 'const GG = (config = {}) => {\n';
-    packedData += 'const GG_E = {};\nconst GG_I = {}\n\n';
+    packedData += 'const GGE = {};\nconst GGI = {}\n\n';
     const files = walk(srcDir);
     for (const file of files) {
       packedData += fs.readFileSync(file, 'utf8') + '\n\n';
     }
-    packedData += 'GG_Setup();\n\nreturn GG_E;\n}';
+    packedData += 'GG_Setup();\n\nreturn GGE;\n}';
     const babeled = babel.transformSync(packedData, {
       minified: true,
       comments: false,
