@@ -3,4 +3,5 @@ const GG_Config = {
   canvasID: null,
   width: 800,
   height: 600,
+  topLeft: false,
 }

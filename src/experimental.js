@@ -2,27 +2,27 @@ const GG_Experimental = () => {
   const gl = GGI.gl;
 
   const vertexShaderSrc = `
-    // an attribute will receive data from a buffer
-    attribute vec4 a_position;
-  
-    // all shaders have a main function
+    attribute vec2 a_position;
+    uniform vec2 u_resolution;
     void main() {
-  
-      // gl_Position is a special variable a vertex shader
-      // is responsible for setting
-      gl_Position = a_position;
+      // normalize pixels
+      vec2 zeroToOne = a_position / u_resolution;
+
+      // 0->1 to 0->2
+      vec2 zeroToTwo = zeroToOne * 2.0;
+
+      // 0->2 to -1->1
+      vec2 clipSpace = zeroToTwo - 1.0;
+
+      gl_Position = vec4(clipSpace${GGI.config.topLeft ? " * vec2(1, -1)":""}, 0, 1);
     }
   `;
   
   const fragmentShaderSrc = `
-    // fragment shaders don't have a default precision so we need
-    // to pick one. mediump is a good default
     precision mediump float;
-  
+    uniform vec4 u_color;
     void main() {
-      // gl_FragColor is a special variable a fragment shader
-      // is responsible for setting
-      gl_FragColor = vec4(1, 0, 0.5, 1); // return redish-purple
+      gl_FragColor = u_color;
     }
   `;
 
@@ -56,14 +56,19 @@ const GG_Experimental = () => {
   const program = createProgram(gl, vertexShader, fragmentShader);
 
   const positionAttribLoc = gl.getAttribLocation(program, "a_position");
+  const resolutionUniLoc = gl.getUniformLocation(program, "u_resolution");
+  const colorUniLoc = gl.getUniformLocation(program, "u_color");
 
   const positionBuffer = gl.createBuffer();
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
   const positions = [
-    0,  0,
-    0,  0.5,
-    0.7,0,
+    10, 20,
+    80, 20,
+    10, 30,
+    10, 30,
+    80, 20,
+    80, 30,
   ]
   gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
@@ -75,6 +80,7 @@ const GG_Experimental = () => {
   gl.useProgram(program);
 
   gl.enableVertexAttribArray(positionAttribLoc);
+  gl.uniform2f(resolutionUniLoc, gl.canvas.width, gl.canvas.height);
 
   gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
 
@@ -87,5 +93,41 @@ const GG_Experimental = () => {
   gl.vertexAttribPointer(
           positionAttribLoc, size, type, normalize, stride, offset);
 
-  gl.drawArrays(gl.TRIANGLES, 0, 3); // (primitiveType, offset, count)
+  //gl.drawArrays(gl.TRIANGLES, 0, 6); // (primitiveType, offset, count)
+  for (var ii = 0; ii < 50; ++ii) {
+    // Setup a random rectangle
+    // This will write to positionBuffer because
+    // its the last thing we bound on the ARRAY_BUFFER
+    // bind point
+    setRectangle(
+        gl, randomInt(300), randomInt(300), randomInt(300), randomInt(300));
+
+    // Set a random color.
+    gl.uniform4f(colorUniLoc, Math.random(), Math.random(), Math.random(), 1);
+
+    // Draw the rectangle.
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  }
+
+  // Returns a random integer from 0 to range - 1.
+  function randomInt(range) {
+    return Math.floor(Math.random() * range);
+  }
+
+  // Fill the buffer with the values that define a rectangle.
+  function setRectangle(gl, x, y, width, height) {
+    var x1 = x;
+    var x2 = x + width;
+    var y1 = y;
+    var y2 = y + height;
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      x1, y1,
+      x2, y1,
+      x1, y2,
+      x1, y2,
+      x2, y1,
+      x2, y2,
+    ]), gl.STATIC_DRAW);
+  }
+
 }
