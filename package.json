@@ -10,7 +10,7 @@
     "chokidar": "^3.0.1"
   },
   "scripts": {
-    "pack": "nodemon dist/packer.js"
+    "start": "node dist/utils/packer.js"
   },
   "repository": {
     "type": "git",
