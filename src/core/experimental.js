@@ -1,4 +1,6 @@
-const GG_Experimental = () => {
+import { GGI } from "./internal";
+
+export const GG_Experimental = () => {
   const gl = GGI.gl;
 
   const vertexShaderSrc = `

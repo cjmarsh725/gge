@@ -1,1 +1,1 @@
-let gg = GG();
+GG.setup();

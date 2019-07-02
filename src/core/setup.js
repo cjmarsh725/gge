@@ -1,5 +1,8 @@
-/*----- SETUP -----*/
-const GG_Setup = () => {
+import { GG_Experimental } from "./experimental";
+import { GG_Config } from "./defaults";
+import { GGI } from "./internal";
+
+export const GG_Setup = (config = {}) => {
   // Complete supplied config with default values
   GGI.config = Object.assign(GG_Config, config);
 
