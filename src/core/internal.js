@@ -1,1 +1,1 @@
-export const GGI = {}
+export const ggi = {}

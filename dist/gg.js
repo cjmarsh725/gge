@@ -1,10 +1,10 @@
 var GG = (function (exports) {
   'use strict';
 
-  const GGI = {};
+  const ggi = {};
 
-  const GG_Experimental = () => {
-    const gl = GGI.gl;
+  const experimental = () => {
+    const gl = ggi.gl;
 
     const vertexShaderSrc = `
     attribute vec2 a_position;
@@ -19,7 +19,7 @@ var GG = (function (exports) {
       // 0->2 to -1->1
       vec2 clipSpace = zeroToTwo - 1.0;
 
-      gl_Position = vec4(clipSpace${GGI.config.topLeft ? " * vec2(1, -1)":""}, 0, 1);
+      gl_Position = vec4(clipSpace, 0, 1);
     }
   `;
     
@@ -137,55 +137,54 @@ var GG = (function (exports) {
 
   };
 
-  const GG_Config = {
+  const defaultConfig = {
     parentID: null,
     canvasID: null,
     width: 800,
     height: 600,
-    topLeft: false,
   };
 
-  const GG_Setup = (config = {}) => {
+  const setup = (config = {}) => {
     // Complete supplied config with default values
-    GGI.config = Object.assign(GG_Config, config);
+    ggi.config = Object.assign(defaultConfig, config);
 
     // Assign or create canvas and initialize its properties
-    if (GGI.config.canvasID) {
-      const providedCanvas = document.getElementById(GGI.config.canvasID);
+    if (ggi.config.canvasID) {
+      const providedCanvas = document.getElementById(ggi.config.canvasID);
       if (providedCanvas instanceof HTMLCanvasElement) {
-        GGI.canvas = providedCanvas;
-        if (config.width) GGI.canvas.width = GGI.config.width;
-        if (config.height) GGI.canvas.height = GGI.config.height;
+        ggi.canvas = providedCanvas;
+        if (config.width) ggi.canvas.width = ggi.config.width;
+        if (config.height) ggi.canvas.height = ggi.config.height;
       } else {
         console.warn("The provided canvasID was invalid.");
       }
     }
-    if (!(GGI.canvas instanceof HTMLCanvasElement)) {
-      GGI.canvas = document.createElement("canvas");
-      GGI.canvas.width = GGI.config.width;
-      GGI.canvas.height = GGI.config.height;
-      document.body.appendChild(GGI.canvas);
+    if (!(ggi.canvas instanceof HTMLCanvasElement)) {
+      ggi.canvas = document.createElement("canvas");
+      ggi.canvas.width = ggi.config.width;
+      ggi.canvas.height = ggi.config.height;
+      document.body.appendChild(ggi.canvas);
     }
-    if (GGI.config.parentID) {
-      const parent = document.getElementById(GGI.config.parentID);
+    if (ggi.config.parentID) {
+      const parent = document.getElementById(ggi.config.parentID);
       if (parent) {
-        parent.appendChild(GGI.canvas);
+        parent.appendChild(ggi.canvas);
       } else {
         console.warn("The provided parentID was invalid.");
       }
     }
 
     // Get WebGL rendering context
-    const gl = GGI.canvas.getContext("webgl") || 
-                GGI.canvas.getContext("experimental-webgl");
+    const gl = ggi.canvas.getContext("webgl") || 
+                ggi.canvas.getContext("experimental-webgl");
     if (gl === null) throw Error("WebGL is not supported.");
-    else GGI.gl = gl;
+    else ggi.gl = gl;
 
-    GG_Experimental();
+    experimental();
 
   };
 
-  exports.setup = GG_Setup;
+  exports.setup = setup;
 
   return exports;
 

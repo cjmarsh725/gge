@@ -1,3 +1,3 @@
-import { GG_Setup } from "./setup";
+import { setup } from "./setup";
 
-export { GG_Setup as setup };
+export { setup };

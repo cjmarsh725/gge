@@ -1,7 +1,7 @@
-import { GGI } from "./internal";
+import { ggi } from "./internal";
 
-export const GG_Experimental = () => {
-  const gl = GGI.gl;
+export const experimental = () => {
+  const gl = ggi.gl;
 
   const vertexShaderSrc = `
     attribute vec2 a_position;
@@ -16,7 +16,7 @@ export const GG_Experimental = () => {
       // 0->2 to -1->1
       vec2 clipSpace = zeroToTwo - 1.0;
 
-      gl_Position = vec4(clipSpace${GGI.config.topLeft ? " * vec2(1, -1)":""}, 0, 1);
+      gl_Position = vec4(clipSpace, 0, 1);
     }
   `;
   
