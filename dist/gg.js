@@ -184,6 +184,19 @@ var GG = (function (exports) {
 
   };
 
+  class Renderer {
+    constructor() {
+      console.log("testing...");
+    }
+
+    testLog() {
+      console.log("FOOBAR");
+    }
+  }
+
+  const renderer = new Renderer();
+
+  exports.renderer = renderer;
   exports.setup = setup;
 
   return exports;
