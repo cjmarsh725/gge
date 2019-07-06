@@ -1,5 +1,8 @@
-import { setup } from "./setup";
-
-export { setup };
+export { setup } from "./setup";
 export { renderer } from '../renderer';
-export { scene } from '../scene';
+import { sceneManager } from '../scene';
+
+Object.defineProperty(exports, 'scene', { 
+  get() { return sceneManager.loadScene() },
+  set(val) { console.warn("Scene cannot be modified directly, try scene.load instead")}
+})

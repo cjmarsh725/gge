@@ -196,20 +196,47 @@ var gge = (function (exports) {
 
   const _name$1 = new WeakMap();
 
-  class SceneManager {
-    constructor() {
-      ggi.sceneList = {};
-
+  class Scene {
+    constructor(name) {
+      _name$1.set(this, name);
     }
 
     set name(val) {_name$1.set(this, val);}
     get name() {return _name$1.get(this)}
+
+    load(name) {
+      if (ggi.currentScene.name === name)
+        console.warn("Provided scene name is already loaded");
+      if (ggi.sceneList.hasOwnProperty(name))
+        ggi.currentScene = ggi.sceneList[name];
+      else
+        console.warn("Provided scene name was not found for load operation");
+    }
   }
 
-  const scene = new SceneManager();
+  class SceneManager {
+    constructor() {
+      const main = new Scene("main");
+      ggi.currentScene = main;
+      ggi.sceneList = {};
+      ggi.sceneList["main"] = main; 
+      const test = new Scene("test");
+      ggi.sceneList["test"] = test; 
+    }
+
+    loadScene() {
+      return ggi.currentScene;
+    }
+  }
+
+  const sceneManager = new SceneManager();
+
+  Object.defineProperty(exports, 'scene', { 
+    get() { return sceneManager.loadScene() },
+    set(val) { console.warn("Scene cannot be modified directly, try scene.load instead");}
+  });
 
   exports.renderer = renderer;
-  exports.scene = scene;
   exports.setup = setup;
 
   return exports;

@@ -1,1 +1,10 @@
 gge.setup();
+console.log(gge.scene.name);
+gge.scene.load("test");
+console.log(gge.scene.name);
+gge.scene = "foo";
+gge.scene.load("foo");
+gge.scene.load("Main");
+gge.scene.load();
+gge.scene.load("main");
+console.log(gge.scene.name);

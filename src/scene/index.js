@@ -1,3 +1,3 @@
 import SceneManager from './scenemanager';
 
-export const scene = new SceneManager();
+export const sceneManager = new SceneManager();
