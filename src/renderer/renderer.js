@@ -1,9 +1,8 @@
+
+const _name = new WeakMap();
+
 export default class Renderer {
   constructor() {
-    console.log("testing...");
-  }
-
-  testLog() {
-    console.log("FOOBAR");
+    _name.set(this, "foo");
   }
 }

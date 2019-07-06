@@ -1,4 +1,4 @@
-var GG = (function (exports) {
+var gge = (function (exports) {
   'use strict';
 
   const ggi = {};
@@ -184,19 +184,32 @@ var GG = (function (exports) {
 
   };
 
+  const _name = new WeakMap();
+
   class Renderer {
     constructor() {
-      console.log("testing...");
-    }
-
-    testLog() {
-      console.log("FOOBAR");
+      _name.set(this, "foo");
     }
   }
 
   const renderer = new Renderer();
 
+  const _name$1 = new WeakMap();
+
+  class SceneManager {
+    constructor() {
+      ggi.sceneList = {};
+
+    }
+
+    set name(val) {_name$1.set(this, val);}
+    get name() {return _name$1.get(this)}
+  }
+
+  const scene = new SceneManager();
+
   exports.renderer = renderer;
+  exports.scene = scene;
   exports.setup = setup;
 
   return exports;

@@ -1,2 +1,1 @@
-GG.setup();
-GG.renderer.testLog();
+gge.setup();
