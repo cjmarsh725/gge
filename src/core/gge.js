@@ -4,5 +4,5 @@ import { sceneManager } from '../scene';
 
 Object.defineProperty(exports, 'scene', { 
   get() { return sceneManager.loadScene() },
-  set(val) { console.warn("Scene cannot be modified directly, try scene.load instead")}
+  set(val) { console.error("Scene cannot be modified directly, try scene.load instead") }
 })

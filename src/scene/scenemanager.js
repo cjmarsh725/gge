@@ -6,9 +6,7 @@ export default class SceneManager {
     const main = new Scene("main");
     ggi.currentScene = main;
     ggi.sceneList = {};
-    ggi.sceneList["main"] = main; 
-    const test = new Scene("test");
-    ggi.sceneList["test"] = test; 
+    ggi.sceneList["main"] = main;
   }
 
   loadScene() {

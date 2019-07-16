@@ -5,4 +5,6 @@ export default class Renderer {
   constructor() {
     _name.set(this, "foo");
   }
+  
+  
 }
