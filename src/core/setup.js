@@ -38,6 +38,6 @@ export const setup = (config = {}) => {
   if (gl === null) throw Error("WebGL is not supported.");
   else ggi.gl = gl;
 
-  experimental();
+  //experimental();
 
 }

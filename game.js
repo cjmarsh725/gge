@@ -8,3 +8,4 @@ gge.scene.load("Main");
 gge.scene.load();
 gge.scene.load("main");
 console.log(gge.scene.name);
+gge.run();

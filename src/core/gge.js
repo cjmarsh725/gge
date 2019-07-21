@@ -1,7 +1,7 @@
 export { setup } from "./setup";
 
 import { renderer } from '../renderer';
-export const run = renderer.run;
+export const run = () => renderer.run();
 
 import { sceneManager } from '../scene';
 Object.defineProperty(exports, 'scene', { 
