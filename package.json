@@ -8,7 +8,9 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "chokidar": "^3.0.1",
-    "rollup-plugin-node-resolve": "^5.2.0"
+    "rollup-plugin-livereload": "^1.0.1",
+    "rollup-plugin-node-resolve": "^5.2.0",
+    "rollup-plugin-serve": "^1.0.1"
   },
   "scripts": {
     "start": "node dist/utils/packer.js"
