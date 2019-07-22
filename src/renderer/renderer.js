@@ -38,12 +38,12 @@ export default class Renderer {
     const texcoordBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, texcoordBuffer);
     const texcoords = [
+      0, 1,
       0, 0,
-      0, 1,
-      1, 0,
-      1, 0,
-      0, 1,
       1, 1,
+      1, 1,
+      0, 0,
+      1, 0,
     ];
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(texcoords), gl.STATIC_DRAW);
     // assign program data to object
@@ -95,7 +95,7 @@ export default class Renderer {
     gl.enableVertexAttribArray(texcoordLoc);
     gl.vertexAttribPointer(texcoordLoc, 2, gl.FLOAT, false, 0, 0);
     // create a matrix to convert from pixels to clip space
-    let matrix = m4.orthographic(0, gl.canvas.width, gl.canvas.height, 0, -1, 1);
+    let matrix = m4.orthographic(0, gl.canvas.width, 0, gl.canvas.height, -1, 1);
     // move the matrix to the appropriate x,y position
     matrix = m4.translate(matrix, x, y, 0);
     // change the height and width to the image's
