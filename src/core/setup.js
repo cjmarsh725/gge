@@ -31,6 +31,14 @@ export const setup = (config = {}) => {
       console.warn("The provided parentID was invalid.");
     }
   }
+  if (ggi.config.fullScreen) {
+    ggi.canvas.width = window.innerWidth;
+    ggi.canvas.height = window.innerHeight;
+    window.onresize = () => {
+      ggi.canvas.width = window.innerWidth;
+      ggi.canvas.height = window.innerHeight;
+    };
+  }
 
   // Get WebGL rendering context
   const gl = ggi.canvas.getContext("webgl") || 

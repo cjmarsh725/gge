@@ -10,6 +10,7 @@ var gge = (function (exports) {
     canvasID: null,
     width: 800,
     height: 600,
+    fullScreen: false,
   };
 
   const setup = (config = {}) => {
@@ -40,6 +41,14 @@ var gge = (function (exports) {
       } else {
         console.warn("The provided parentID was invalid.");
       }
+    }
+    if (ggi.config.fullScreen) {
+      ggi.canvas.width = window.innerWidth;
+      ggi.canvas.height = window.innerHeight;
+      window.onresize = () => {
+        ggi.canvas.width = window.innerWidth;
+        ggi.canvas.height = window.innerHeight;
+      };
     }
 
     // Get WebGL rendering context

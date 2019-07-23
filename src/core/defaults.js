@@ -3,4 +3,5 @@ export const defaultConfig = {
   canvasID: null,
   width: 800,
   height: 600,
+  fullScreen: false,
 }

@@ -1,2 +1,2 @@
-gge.setup();
+gge.setup({fullScreen: true});
 gge.run();
