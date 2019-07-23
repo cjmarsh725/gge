@@ -32,6 +32,7 @@ export const setup = (config = {}) => {
     }
   }
   if (ggi.config.fullScreen) {
+    ggi.canvas.style.display = "block";
     ggi.canvas.width = window.innerWidth;
     ggi.canvas.height = window.innerHeight;
     window.onresize = () => {

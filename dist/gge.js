@@ -43,6 +43,7 @@ var gge = (function (exports) {
       }
     }
     if (ggi.config.fullScreen) {
+      ggi.canvas.style.display = "block";
       ggi.canvas.width = window.innerWidth;
       ggi.canvas.height = window.innerHeight;
       window.onresize = () => {
@@ -332,6 +333,7 @@ var gge = (function (exports) {
     }
 
     draw() {
+      ggi.gl.viewport(0, 0, ggi.canvas.width, ggi.canvas.height);
       ggi.gl.clear(ggi.gl.COLOR_BUFFER_BIT);
       this.drawImage(this.textureInfo.texture,
                     this.textureInfo.width,

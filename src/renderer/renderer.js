@@ -109,6 +109,7 @@ export default class Renderer {
   }
 
   draw() {
+    ggi.gl.viewport(0, 0, ggi.canvas.width, ggi.canvas.height);
     ggi.gl.clear(ggi.gl.COLOR_BUFFER_BIT);
     this.drawImage(this.textureInfo.texture,
                   this.textureInfo.width,
